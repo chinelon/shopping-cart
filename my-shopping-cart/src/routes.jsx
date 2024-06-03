@@ -18,10 +18,12 @@ const routes = [
   {
     path: "/product/:id",
     element: <Products />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />
+    children: [
+      {
+        path: "cart",
+        element: <Cart />
+      }
+    ]
   }
 ];
 

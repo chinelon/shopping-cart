@@ -1,40 +1,16 @@
 import Navbar from "./ Navbar";
 import { useEffect, useState } from "react";
-import {useParams} from "react-router-dom"
-//import { Link } from "react-router-dom";
-
-/*const useImageURL = () => {
-    const [imageURL, setImageURL] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/photos", { mode: "cors" })
-            .then((response) => {
-                if (response.status >= 400) {
-                    throw new Error("server error");
-                }
-                return response.json();
-            })
-            .then((response) => setImageURL(response[0].url))
-            .catch((error) => setError(error))
-            .finally(() => setLoading(false));
-    }, []);
-
-    return { imageURL, error, loading };
-};*/
+import { useParams } from "react-router-dom";
+import Cart from "./Cart";
 
 export default function Products() {
-
-
-    const [quantity, setQuantity] = useState(0)
-    // const { imageURL, error, loading } = useImageURL();
-    const [cart, setCart] = useState(0)
+    const [quantity, setQuantity] = useState(0);
+    const [cart, setCart] = useState([]);
     const { id } = useParams(); // Extracting the product ID from the URL parameter
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -56,41 +32,64 @@ export default function Products() {
     }, [id]);
 
     function increment() {
-        setQuantity(quantity + 1)
+        if (quantity >= 5) {
+            setQuantity(quantity + 0);
+            alert('No more than 5 items can be chosen');
+        } else {
+            setQuantity(quantity + 1);
+        }
     }
 
     function decrement() {
-        setQuantity(quantity - 1)
+        if (quantity >= 0) {
+            setQuantity(quantity - quantity);
+        } else {
+            setQuantity(quantity - 1);
+        }
     }
+
     function addToCart() {
-        console.log(quantity)
-        //this function should also take in the products name, price and picture and push it to the cart components
-        setCart(quantity)
-        console.log(cart)
+        setCart([...cart, { product, quantity }]);
+    }
+
+    function toggleCart() {
+        setIsCartOpen(!isCartOpen);
     }
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>A network error was encountered</p>;
+
     return (
         <>
-            <Navbar />
+            <Navbar toggleCart={toggleCart} />
             <div className="product-main">
                 <div>
                     <div>
                         {product && (
                             <>
                                 <img src={product.image} alt={product.title} />
+                                <br />
                                 <h1>{product.title}</h1>
+                                <br />
                                 <p>{product.description}</p>
+                                <br />
                                 <p>Price: ${product.price}</p>
+                                <br />
                             </>
                         )}
                     </div>
-                    <div><button onClick={increment}>+</button>{quantity}<button onClick={decrement}>-</button></div>
-                    <button onClick={addToCart}> Add to Cart</button>
+                    <div>
+                        <button onClick={increment}>+</button>
+                        {quantity}
+                        <button onClick={decrement}>-</button>
+                    </div>
+                    <br />
+                    <button onClick={addToCart}>Add to Cart</button>
                 </div>
-
             </div>
+            {isCartOpen && <div className="cart-overlay">
+                <Cart cart={cart} />
+            </div>}
         </>
-    )
+    );
 }

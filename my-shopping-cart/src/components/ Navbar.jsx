@@ -1,18 +1,16 @@
-/* eslint-disable react/prop-types */
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from "react-router-dom"
-export default function Navbar({ count }) {
+import { Link } from "react-router-dom";
+
+export default function Navbar({ toggleCart }) {
     return (
         <div className="nav">
             <div>
-                <h2>Project Selfcare!</h2>
+                <div><Link id="cart-link" to="/"> <h2>Shopfree</h2> </Link></div>
             </div>
-            <div className="nav2
-            ">
-            <div> <Link id="cart-link" to="/cart"> Cart{count} </Link></div>
-            <div> <Link id="cart-link" to="/"> Home </Link> </div>
+            <div className="nav2">
+                <div><a id="cart-link" onClick={toggleCart}>Cart</a></div>
+                <div><Link id="cart-link" to="/shop">Products</Link></div>
             </div>
-          
+            
         </div>
-    )
+    );
 }

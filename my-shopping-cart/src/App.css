@@ -17,6 +17,33 @@ header{
   gap: 20px;
 }
 
+footer{
+  background-color: rgba(255, 97, 123, 0.544);
+  padding: 20px;
+  color: black;
+align-content: center;
+margin-top: 460px;
+text-align: center;
+}
+
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.cart-main {
+  padding: 20px;
+}
+
+
+
 .shop-main{
   display: grid;
   grid-template-columns: 300px 300px 300px;
@@ -36,8 +63,16 @@ border-radius: 5%;
   border: 1px rgb(255, 97, 124) solid;
   margin-top: 20px;
   display: flex;
+  width: 500px;
+  padding: 20px;
+  margin-left: 450px;
+  margin-top: 50px;
 }
 
+#product{
+    padding: 20px;
+
+}
 .cart-main h3{
   padding: 20px;
 }

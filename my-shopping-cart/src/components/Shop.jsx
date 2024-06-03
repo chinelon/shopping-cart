@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import Navbar from "./ Navbar";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 export default function Shop() {
 
     const [products, setProducts] = useState([]);
@@ -37,7 +37,7 @@ export default function Shop() {
             <Navbar />
             <div className="shop-main">
                 {products.map(product => (
-                    <div key={product.id}>
+                    <div key={product.id} id="product">
                         <Link to={`/product/${product.id}`}>
 
                             <img src={product.image} alt={product.title} />
